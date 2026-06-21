@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{ q_num }} - Physics 102 CBT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+        .logo { font-size: 28px; }
+        .progress {
+            text-align: right;
+        }
+        .progress-bar {
+            width: 200px;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+        .progress-text {
+            font-size: 0.85em;
+            color: #a0a0a0;
+        }
+        .question-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 20px;
+        }
+        .question-text {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            background: rgba(233, 69, 96, 0.1);
+            border-color: rgba(233, 69, 96, 0.3);
+            transform: translateX(5px);
+        }
+        .option-letter {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .option-text {
+            font-size: 1.1em;
+        }
+        .submit-btn {
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+        }
+        .submit-btn:disabled {
+            opacity: 0.5;
+cursor: not-allowed;
+        }
+        .score-display {
+            text-align: center;
+            margin-top: 15px;
+            color: #a0a0a0;
+        }
+        input[type="radio"] { display: none; }
+        input[type="radio"]:checked + .option {
+            background: rgba(233, 69, 96, 0.15);
+            border-color: #e94560;
+        }
+        input[type="radio"]:checked + .option .option-letter {
+            background: #e94560;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">⚛️ Physics 102</div>
+            <div class="progress">
+                <div class="progress-text">Question {{ q_num }} of {{ total }}</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ (q_num / total) * 100 }}%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card">
+            <div class="question-number">Question {{ q_num }}</div>
+            <div class="question-text">{{ question.question }}</div>
+
+            <form action="/submit" method="POST" id="answerForm">
+                <div class="options">
+                    <label>
+                        <input type="radio" name="answer" value="0" required>
+                        <div class="option">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">{{ question.options[0] }}</div>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="answer" value="1">
+                        <div class="option">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">{{ question.options[1] }}</div>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="answer" value="2">
+                        <div class="option">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">{{ question.options[2] }}</div>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" name="answer" value="3">
+                        <div class="option">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">{{ question.options[3] }}</div>
+                        </div>
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Answer →</button>
+            </form>
+        </div>
+
+        <div class="score-display">
+            Score: {{ score }} / {{ answered }} answered
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('answerForm').addEventListener('submit', function(e) {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            if (!selected) {
+                e.preventDefault();
+                alert('Please select an answer!');
+            }
+        });
+    </script>
+</body>
+</html>
