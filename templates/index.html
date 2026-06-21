@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics 102 CBT Exam</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 700px;
+        }
+        .logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+        }
+        .topics {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .topics h3 {
+            color: #e94560;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .topic-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .topic-item {
+            background: rgba(255,255,255,0.08);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        .topic-item::before {
+            content: "⚡ ";
+            color: #e94560;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #e94560;
+        }
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.9em;
+        }
+        .start-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            color: white;
+            padding: 18px 60px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+        .footer {
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">⚛️</div>
+        <h1>Physics 102 CBT Exam</h1>
+        <p class="subtitle">Coulomb's Law · Electric Field · Gauss's Law · Potential · Dipoles</p>
+
+        <div class="topics">
+            <h3>📚 Topics Covered</h3>
+            <div class="topic-list">
+                <div class="topic-item">Coulomb's Law</div>
+                <div class="topic-item">Electric Field</div>
+                <div class="topic-item">Gauss's Law</div>
+                <div class="topic-item">Electric Potential</div>
+                <div class="topic-item">Electric Dipoles</div>
+                <div class="topic-item">Conductors & Insulators</div>
+                <div class="topic-item">Electrostatic Induction</div>
+                <div class="topic-item">Fundamental Forces</div>
+            </div>
+        </div>
+<div class="stats">
+            <div class="stat">
+                <div class="stat-number">100</div>
+                <div class="stat-label">Questions</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Options Each</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Attempts</div>
+            </div>
+        </div>
+
+        <a href="/question" class="start-btn">🚀 Start Exam</a>
+
+        <div class="footer">
+            <p>Instructions: Select the best answer for each question.</p>
+            <p>If you get a question wrong, the correct answer and explanation will be shown.</p>
+            <p>At the end, you'll receive your score, grade, and a review of wrong answers.</p>
+        </div>
+    </div>
+</body>
+</html>
