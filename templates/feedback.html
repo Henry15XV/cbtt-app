@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Physics 102 CBT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+        .logo { font-size: 28px; }
+        .progress { text-align: right; }
+        .progress-text { font-size: 0.85em; color: #a0a0a0; }
+
+        .feedback-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .result-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .result-correct {
+            color: #4ade80;
+        }
+        .result-wrong {
+            color: #f87171;
+        }
+        .result-message {
+            font-size: 1.1em;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+        }
+
+        .answer-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .answer-section h3 {
+            color: #e94560;
+            margin-bottom: 15px;
+        }
+        .your-answer {
+            color: #f87171;
+            padding: 10px;
+            background: rgba(248, 113, 113, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .correct-answer {
+            color: #4ade80;
+            padding: 10px;
+            background: rgba(74, 222, 128, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .explanation {
+            color: #d1d5db;
+            line-height: 1.7;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            border-left: 4px solid #e94560;
+        }
+        .explanation-label {
+            color: #e94560;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .next-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            color: white;
+            padding: 15px 50px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+        }
+
+        .score-display {
+            text-align: center;
+            margin-top: 15px;
+            color: #a0a0a0;
+        }
+        .score-highlight {
+            color: #4ade80;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">⚛️ Physics 102</div>
+            <div class="progress">
+                <div class="progress-text">Question {{ q_num }} of {{ total }}</div>
+            </div>
+        </div>
+        <div class="feedback-card">
+            {% if correct %}
+                <div class="result-icon">✅</div>
+                <div class="result-title result-correct">CORRECT!</div>
+                <div class="result-message">Well done! You got it right.</div>
+            {% else %}
+                <div class="result-icon">❌</div>
+                <div class="result-title result-wrong">WRONG!</div>
+                <div class="result-message">Let's learn from this one.</div>
+
+                <div class="answer-section">
+                    <h3>📚 Answer Review</h3>
+                    <div class="your-answer">
+                        <strong>Your Answer:</strong> {{ ['A','B','C','D'][user_answer] }}. {{ question.options[user_answer] }}
+                    </div>
+                    <div class="correct-answer">
+                        <strong>Correct Answer:</strong> {{ ['A','B','C','D'][question.answer] }}. {{ question.options[question.answer] }}
+                    </div>
+                    <div class="explanation">
+                        <div class="explanation-label">💡 Explanation:</div>
+                        {{ question.explanation }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if q_num < total %}
+                <a href="/question" class="next-btn">Next Question →</a>
+            {% else %}
+                <a href="/results" class="next-btn">View Results 🏆</a>
+            {% endif %}
+        </div>
+
+        <div class="score-display">
+            Current Score: <span class="score-highlight">{{ score }}</span> / {{ answered }}
+        </div>
+    </div>
+</body>
+</html>
